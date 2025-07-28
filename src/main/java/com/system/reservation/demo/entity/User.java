@@ -7,13 +7,17 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Getter
+@Setter
 public class User {
 
   @Id
@@ -22,7 +26,7 @@ public class User {
   private String lastName;
   private String email;
   private String phone;
-  private LocalDateTime registerDate = LocalDateTime.now();
+  private LocalDateTime registerDate;
   private UserStateEnum userStateEnum;
 
 }
