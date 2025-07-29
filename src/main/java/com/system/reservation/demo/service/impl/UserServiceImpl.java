@@ -3,10 +3,10 @@ package com.system.reservation.demo.service.impl;
 import com.system.reservation.demo.dto.UserRequest;
 import com.system.reservation.demo.dto.UserResponse;
 import com.system.reservation.demo.entity.User;
+import com.system.reservation.demo.entity.enums.UserStateEnum;
 import com.system.reservation.demo.repository.UserRepository;
 import com.system.reservation.demo.service.UserService;
 import com.system.reservation.demo.utils.mappers.UserMapper;
-import java.time.LocalDateTime;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -47,7 +47,10 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public void inactiveUser(String id) {
-
+  public void inactiveUser(UUID id) {
+    var user = userRepository.findById(id);
+    user.setUserStateEnum(UserStateEnum.INACTIVE);
+    userRepository.save(user);
   }
+
 }
