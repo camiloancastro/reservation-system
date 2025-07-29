@@ -1,6 +1,9 @@
 package com.system.reservation.demo.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.system.reservation.demo.entity.enums.UserStateEnum;
+import java.time.LocalDateTime;
+import java.util.UUID;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,11 +17,13 @@ import lombok.Setter;
 @Builder
 public class UserResponse {
 
-  private String id;
-  private String names;
+  private UUID id;
+  private String name;
   private String lastName;
   private String email;
-  private String phoneNumber;
-  private UserStateEnum state;
+  private String phone;
+  private UserStateEnum userStateEnum;
+  @JsonFormat(pattern = "yyyy-MM-dd")
+  private LocalDateTime registerDate;
 
 }
