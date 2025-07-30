@@ -10,6 +10,7 @@ import com.system.reservation.demo.utils.mappers.UserMapper;
 import java.util.UUID;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
@@ -27,23 +28,29 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public UserResponse getUserById(String id) {
-    return null;
+  public UserResponse getUserById(UUID id) {
+    var user = userRepository.findById(id);
+    return userMapper.userToUserResponse(user);
   }
 
   @Override
   public UserResponse getUserByEmail(String email) {
-    return null;
+    var  user = userRepository.findByEmail(email);
+    return userMapper.userToUserResponse(user);
   }
 
   @Override
-  public Page<User> getUserList(int pageNum, int pageSize) {
-    return null;
+  public Page<UserResponse> getUserList(Pageable pageable) {
+    return userRepository.findAll(pageable)
+        .map(userMapper::userToUserResponse);
   }
 
   @Override
-  public UserResponse updateUser(UserRequest userDTo) {
-    return null;
+  public UserResponse updateUser(UUID id, UserRequest userDTo) {
+    var user = userRepository.findById(id);
+    userMapper.updateUserFromRequest(userDTo, user);
+    User saved = userRepository.save(user);
+    return userMapper.userToUserResponse(saved);
   }
 
   @Override
